@@ -1,0 +1,48 @@
+.table-sortable th {
+    cursor: pointer;
+  }
+  
+  .table-sortable .th-sort-asc::after {
+    content: "\25b4";
+  }
+  
+  .table-sortable .th-sort-desc::after {
+    content: "\25be";
+  }
+  
+  .table-sortable .th-sort-asc::after,
+  .table-sortable .th-sort-desc::after {
+    margin-left: 5px;
+  }
+  
+  .table-sortable .th-sort-asc,
+  .table-sortable .th-sort-desc {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+.form {
+    width: 700px;
+    margin: auto;
+    margin-top: 1rem;
+}
+
+#button-form{
+    position:relative;
+    top:50%; 
+    left:50%;
+    margin-bottom: 1rem;
+}
+
+.img{
+  width: 150px;
+  height: 150px;
+}
+
+.table-striped.table-hover>tbody>tr:hover>td, 
+.table-striped.table-hover>tbody>tr:hover>th {
+  background-color: #f9c6cb;
+}
+
+.table {
+  align-items: center;
+}
