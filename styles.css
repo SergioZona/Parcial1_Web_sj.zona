@@ -1,37 +1,22 @@
-.table-sortable th {
-    cursor: pointer;
-  }
-  
-  .table-sortable .th-sort-asc::after {
-    content: "\25b4";
-  }
-  
-  .table-sortable .th-sort-desc::after {
-    content: "\25be";
-  }
-  
-  .table-sortable .th-sort-asc::after,
-  .table-sortable .th-sort-desc::after {
-    margin-left: 5px;
-  }
-  
-  .table-sortable .th-sort-asc,
-  .table-sortable .th-sort-desc {
-    background: rgba(0, 0, 0, 0.1);
-  }
-
-.form {
-    width: 700px;
-    margin: auto;
-    margin-top: 1rem;
+#title-font{
+  font-family: 'Satisfy', cursive;
 }
 
-#button-form{
-    position:relative;
-    top:50%; 
-    left:50%;
-    margin-bottom: 1rem;
+#items{
+  text-align: center;
+  vertical-align: middle;
 }
+
+#banner{
+  margin-top: 1rem;
+  background-color: #333a42;
+}
+
+#banner-text{
+  font-family: 'Satisfy';
+  color: white;
+}
+
 
 .img{
   width: 150px;

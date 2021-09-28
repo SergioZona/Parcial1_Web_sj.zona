@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Squirrel</title>
+    <title>Restaurant</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
@@ -13,32 +13,50 @@
     />
     <link rel="stylesheet" href="styles.css" title="Personalizado">
 
+    <link href="https://fonts.google.com/specimen/Satisfy?query=Satisfy#standard-styles" rel="stylesheet">
+
   </head>
   <body>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Events</th>
-          <th scope="col">Squirrel</th>
-        </tr>
-      </thead>
-      <tbody id ="table-data">
-      </tbody>
-    </table>
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Events</th>
-          <th scope="col">Correlation</th>
-        </tr>
-      </thead>
-      <tbody id ="table-correlation">
-      </tbody>
-    </table>
-
+    <div class="container-fluid">
+      <div class="row">
+        <div id="title" class="col-10">
+          <h1 id="title-font">Restaurant & Lounge</h1>
+        </div>
+        <div id="carrito" class="col-1">
+          <img src="data/carrito.png" class = "img-fluid"></img> 
+        </div>
+        <div id="items" class="col-1">
+          <p>Items</p>
+          <p id="num-items">0</p>
+        </div>
+      </div>   
+    </div>
+    <div class="row">
+      <img src="data/principal.png" class = "img-fluid"></img> 
+    </div>
+    <div class="row" id="banner">
+      <div class="col-1">
+        <p id="banner-text">Burgers</p>
+      </div>
+      <div class="col-1">
+        <p id="banner-text">Tacos</p>
+      </div>
+      <div class="col-1">
+        <p id="banner-text">Salads</p>
+      </div>
+      <div class="col-1">
+        <p id="banner-text">Desserts</p>
+      </div>
+      <div class="col-1">
+        <p id="banner-text">Drinks & Slides</p>
+      </div>
+    </div>
+    <div class="row text-center" id="product-name">
+      <p>Burgers</p>
+    </div>
+    <div class="row" id="cards">
+    </div>
+    </div>
     <script src="main.js"></script>
   </body>
 </html>
