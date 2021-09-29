@@ -18,6 +18,10 @@
   height:auto;
 }
 
+#total-factura{
+  padding-left: 1rem;
+}
+
 #carrito,
 #img-principal{
   align-items: center;
