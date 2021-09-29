@@ -2,32 +2,54 @@
   font-family: 'Satisfy', cursive;
 }
 
-#items{
+#footer{
   text-align: center;
-  vertical-align: middle;
+  color: black;
 }
 
 #banner{
-  margin-top: 1rem;
+  height:5rem;
   background-color: #333a42;
+  align-self: center;
 }
 
-#banner-text{
-  font-family: 'Satisfy';
+#img-principal{
+  max-width:100%;
+  height:auto;
+}
+
+#carrito,
+#img-principal{
+  align-items: center;
+  justify-content : center;
+  align-self: center;
+}
+
+#title,
+.producto{
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-producto{
   color: white;
 }
 
-
-.img{
-  width: 150px;
-  height: 150px;
+#product-name{
+  font-size: 200%;
+  font-weight: bold;
 }
 
-.table-striped.table-hover>tbody>tr:hover>td, 
-.table-striped.table-hover>tbody>tr:hover>th {
-  background-color: #f9c6cb;
+.card{
+  margin-top: 1rem;
+  margin-right: 1rem;
 }
 
-.table {
-  align-items: center;
+#cards{
+  padding: 1rem;
+}
+
+#navbarNav{
+  padding-left: 0.5rem;
 }

@@ -13,50 +13,65 @@
     />
     <link rel="stylesheet" href="styles.css" title="Personalizado">
 
-    <link href="https://fonts.google.com/specimen/Satisfy?query=Satisfy#standard-styles" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
 
   </head>
   <body>
     <div class="container-fluid">
-      <div class="row">
+      <div class="row " id ="titulo">
         <div id="title" class="col-10">
           <h1 id="title-font">Restaurant & Lounge</h1>
         </div>
         <div id="carrito" class="col-1">
-          <img src="data/carrito.png" class = "img-fluid"></img> 
+          <img src="data/carrito.png" class ="img-fluid" ></img> 
         </div>
-        <div id="items" class="col-1">
-          <p>Items</p>
-          <p id="num-items">0</p>
+        <div id="carrito" class="col-1">
+          <p>Items 0</p>
         </div>
       </div>   
     </div>
-    <div class="row">
-      <img src="data/principal.png" class = "img-fluid"></img> 
+    <hr></hr>
+    <div class="row" id="img-principal">
+      <img src="data/principal.png" class = "img-fluid" id="img-principal"></img> 
     </div>
+    <hr></hr>
     <div class="row" id="banner">
-      <div class="col-1">
-        <p id="banner-text">Burgers</p>
-      </div>
-      <div class="col-1">
-        <p id="banner-text">Tacos</p>
-      </div>
-      <div class="col-1">
-        <p id="banner-text">Salads</p>
-      </div>
-      <div class="col-1">
-        <p id="banner-text">Desserts</p>
-      </div>
-      <div class="col-1">
-        <p id="banner-text">Drinks & Slides</p>
-      </div>
+      <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item" id="burgers">
+              <a class="nav-link text-white" href="javascript:void(0)">Burgers</a>
+            </li>
+            <li class="nav-item" id="tacos">
+              <a class="nav-link text-white" href="javascript:void(0)">Tacos</a>
+            </li>
+            <li class="nav-item" id="salads">
+              <a class="nav-link text-white" href="javascript:void(0)">Salads</a>
+            </li>
+            <li class="nav-item" id=desserts>
+              <a class="nav-link text-white" href="javascript:void(0)">Desserts</a>
+            </li>
+            <li class="nav-item" id="drinks">
+              <a class="nav-link text-white" href="javascript:void(0)">Drinks & Slides</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </div>
-    <div class="row text-center" id="product-name">
-      <p>Burgers</p>
+    <hr></hr>
+    <div class="text-center">
+      <p id="product-name"></p>
     </div>
+    <hr></hr>
     <div class="row" id="cards">
     </div>
+    <div class="text-center" id="footer">
+      <p>Contact us: +57 3102105253 - info@restaurant.com - @restaurant</p>
     </div>
+    </div>
+    
     <script src="main.js"></script>
   </body>
 </html>
