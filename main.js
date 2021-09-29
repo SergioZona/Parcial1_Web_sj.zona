@@ -23,13 +23,12 @@ function iniciarPagina(data) {
   // Se obtiene la sección del HTML que será modificada dinámicamente.
   let cards = document.getElementById("cards");
   let title = document.getElementById("product-name");
-  if(data[0].name=="Burguers"){
+  if (data[0].name == "Burguers") {
     title.innerHTML = "Burgers";
-  }
-  else{
+  } else {
     title.innerHTML = data[0].name;
   }
-  
+
   data[0].products.forEach((product) => {
     let card = `<div class="col-3 d-flex align-items-stretch"">
             <div class="card " style="width: 18rem;">
@@ -49,22 +48,20 @@ function iniciarPagina(data) {
 readData(iniciarPagina);
 
 // Funcionalidad 1.
-function cambiarProducto(data, column){
+function cambiarProducto(data, column) {
   let title = document.getElementById("product-name");
   title.innerHTML = column;
-  if(column=="Burgers"){
+  if (column == "Burgers") {
     column = "Burguers";
-  }
-  else if(column == "Drinks &amp; Slides")
-  {
+  } else if (column == "Drinks &amp; Slides") {
     column = "Drinks and Sides";
   }
-  
+
   let cards = document.getElementById("cards");
   cards.innerHTML = ""; //Se eliminan los productos anteriores.
 
   data.forEach((element) => {
-    if(element.name == column){
+    if (element.name == column) {
       element.products.forEach((product) => {
         let card = `<div class="col-3 d-flex align-items-stretch"">
             <div class="card " style="width: 18rem;">
@@ -79,19 +76,32 @@ function cambiarProducto(data, column){
             </div>`;
         cards.innerHTML += card; //Se agregan los datos.
       });
-    }    
-  });  
+    }
+  });
 }
 
-function clickBanner(data){
-  let headers = document.getElementsByClassName("nav-link");
-  for (let i = 0; i < headers.length; i++) {
-      headers[i].addEventListener('click', function(){
-        cambiarProducto(data, headers[i].innerHTML);
-      });
+function clickBanner(data) {
+  let banner = document.getElementsByClassName("nav-link");
+  for (let i = 0; i < banner.length; i++) {
+    banner[i].addEventListener("click", function () {
+      cambiarProducto(data, banner[i].innerHTML);
+    });
+  }
+}
+readData(clickBanner);
+
+// Funcionalidad 2.
+function addItem(data) {
+  let addToCart = document.getElementsByClassName("btn btn-dark text-white");
+  for (let i = 0; i < addToCart.length; i++) {
+    addToCart[i].addEventListener("click", function () {
+      let items = document.getElementById("items");
+      values = items.innerHTML.split(" ");
+      items.innerHTML = `${values[0]} ${parseInt(values[1])+1}`; //Se eliminan los productos anteriores.
+    });
   }
 }
 
-readData(clickBanner);
-   
-// Funcionalidad 2s.
+readData(addItem);
+
+// Funcionalidad 3.
