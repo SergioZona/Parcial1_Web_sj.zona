@@ -8,32 +8,16 @@
 }
 
 #banner{
-  height:5rem;
+  height:5em;
   background-color: #333a42;
-  align-self: center;
 }
 
 #img-principal{
-  max-width:100%;
   height:auto;
 }
 
 #total-factura{
-  padding-left: 1rem;
-}
-
-#carrito,
-#img-principal{
-  align-items: center;
-  justify-content : center;
-  align-self: center;
-}
-
-#title,
-.producto{
-  align-self: center;
-  align-items: center;
-  justify-content: center;
+  padding-left: 1em;
 }
 
 .text-producto{
@@ -46,16 +30,16 @@
 }
 
 .card{
-  margin-top: 1rem;
-  margin-right: 1rem;
+  margin-top: 1em;
+  margin-right: 1em;
 }
 
 #cards{
-  padding: 1rem;
+  padding: 1em;
 }
 
 #navbarNav{
-  padding-left: 0.5rem;
+  padding-left: 0.5em;
 }
 
 #cancel-button-modal,

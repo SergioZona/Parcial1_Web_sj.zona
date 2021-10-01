@@ -91,23 +91,21 @@ readData(clickBanner);
 
 // Funcionalidad 2 y 3.
 function agregarItem(data) {
+  res=data;
   let addToCart = document.getElementsByClassName(
     "btn btn-dark text-white carrito"
   );
 
   for (let i = 0; i < addToCart.length; i++) {
     addToCart[i].addEventListener("click", function () {
+
       let items = document.getElementById("items");
       values = items.innerHTML.split(" ");
       items.innerHTML = `${values[0]} ${parseInt(values[1]) + 1}`; //Se eliminan los productos anteriores.
 
       // Se agregan los valores al diccionario si no existe. En caso de que exista se suma 1.
       let precioUnidad = parseFloat(
-        addToCart[i].parentNode.childNodes[5].innerHTML
-          .toString()
-          .trim()
-          .replace("$", "")
-      );
+        addToCart[i].parentNode.childNodes[5].innerHTML.toString().trim().replace("$", ""));
 
       temp = new Array();
       if (
@@ -136,6 +134,7 @@ readData(agregarItem);
 
 // Funcionalidad 3.
 function mostrarResumenPedido(data) {
+  res=data;
   let carrito = document.getElementById("carrito");
   carrito.addEventListener("click", function () {
     let title = document.getElementById("product-name");
@@ -178,9 +177,7 @@ function mostrarResumenPedido(data) {
     row = `
           <div class="row">
           <div class="col-9">
-               <p class="font-weight-bold" id="value-total-factura">Total: $${parseFloat(
-                 total
-               ).toFixed(2)}</p>
+               <p class="font-weight-bold" id="value-total-factura">Total: $${parseFloat(total).toFixed(2)}</p>
           </div>
           <div class="col-1">
                <button class="btn btn-danger text-dark" id="cancelCompra" data-toggle="modal" data-target="#modal">Cancel</button>
@@ -199,9 +196,9 @@ function mostrarResumenPedido(data) {
 
 readData(mostrarResumenPedido);
 
-
 // Funcionalidad 4.
 function modificarOrden(data) {
+  res=data;
   let botones_agregar = document.getElementsByClassName(
     "btn btn-dark text-white agregar"
   );
@@ -215,14 +212,19 @@ function modificarOrden(data) {
       values = items.innerHTML.split(" ");
       items.innerHTML = `${values[0]} ${parseInt(values[1]) + 1}`; //Se agrega un elemento al carrito de compras.
 
-      let producto = botones_agregar[i].parentNode.parentNode.childNodes[5].innerHTML;
+      let producto =
+        botones_agregar[i].parentNode.parentNode.childNodes[5].innerHTML;
       let cantidad = productsDict[producto][0];
       let unidad = productsDict[producto][1];
       let monto = productsDict[producto][2];
 
-      botones_agregar[i].parentNode.parentNode.childNodes[3].innerHTML = parseInt(cantidad) + 1;
-      botones_agregar[i].parentNode.parentNode.childNodes[7].innerHTML = parseFloat(unidad).toFixed(2);
-      botones_agregar[i].parentNode.parentNode.childNodes[9].innerHTML = (parseFloat(monto) + parseFloat(unidad)).toFixed(2);
+      botones_agregar[i].parentNode.parentNode.childNodes[3].innerHTML =
+        parseInt(cantidad) + 1;
+      botones_agregar[i].parentNode.parentNode.childNodes[7].innerHTML =
+        parseFloat(unidad).toFixed(2);
+      botones_agregar[i].parentNode.parentNode.childNodes[9].innerHTML = (
+        parseFloat(monto) + parseFloat(unidad)
+      ).toFixed(2);
 
       let temp = Array();
 
@@ -233,8 +235,10 @@ function modificarOrden(data) {
       productsDict[producto] = temp;
 
       // Se actualiza el total.
+      let arrayTemp = new Array();
       total = 0;
       for (const [key, value] of Object.entries(productsDict)) {
+        arrayTemp[0] = key;
         total += parseFloat(value[2]);
       }
       totalFactura = document.getElementById("value-total-factura");
@@ -246,41 +250,48 @@ function modificarOrden(data) {
     botones_quitar[i].addEventListener("click", function () {
       let items = document.getElementById("items");
       values = items.innerHTML.split(" ");
-      let numItems = (parseInt(values[1]) - 1 <= 0) ? 0 : parseInt(values[1]) - 1;
+      let numItems = parseInt(values[1]) - 1 <= 0 ? 0 : parseInt(values[1]) - 1;
       items.innerHTML = `${values[0]} ${numItems}`; //Se eliminan un elemento en el carrito de compras.
 
-      let producto = botones_agregar[i].parentNode.parentNode.childNodes[5].innerHTML;
+      let producto =
+        botones_agregar[i].parentNode.parentNode.childNodes[5].innerHTML;
       let cantidad = productsDict[producto][0];
       let unidad = productsDict[producto][1];
       let monto = productsDict[producto][2];
 
       let temp = Array();
 
-      if(parseInt(cantidad) - 1 <= 0){
-        botones_agregar[i].parentNode.parentNode.childNodes[3].innerHTML =  0;
-        botones_agregar[i].parentNode.parentNode.childNodes[7].innerHTML =  parseFloat(unidad).toFixed(2);
-        botones_agregar[i].parentNode.parentNode.childNodes[9].innerHTML =  parseFloat(0).toFixed(2);
-
+      if (parseInt(cantidad) - 1 <= 0) {
+        botones_agregar[i].parentNode.parentNode.childNodes[3].innerHTML = 0;
+        botones_agregar[i].parentNode.parentNode.childNodes[7].innerHTML =
+          parseFloat(unidad).toFixed(2);
+        botones_agregar[i].parentNode.parentNode.childNodes[9].innerHTML =
+          parseFloat(0).toFixed(2);
 
         temp.push(0);
         temp.push(parseFloat(unidad).toFixed(2));
         temp.push(parseFloat(0));
-      }
-      else{
-        botones_agregar[i].parentNode.parentNode.childNodes[3].innerHTML = parseInt(cantidad) - 1;
-        botones_agregar[i].parentNode.parentNode.childNodes[7].innerHTML = parseFloat(unidad).toFixed(2)
-        botones_agregar[i].parentNode.parentNode.childNodes[9].innerHTML = (parseFloat(monto) - parseFloat(unidad)).toFixed(2);
+      } else {
+        botones_agregar[i].parentNode.parentNode.childNodes[3].innerHTML =
+          parseInt(cantidad) - 1;
+        botones_agregar[i].parentNode.parentNode.childNodes[7].innerHTML =
+          parseFloat(unidad).toFixed(2);
+        botones_agregar[i].parentNode.parentNode.childNodes[9].innerHTML = (
+          parseFloat(monto) - parseFloat(unidad)
+        ).toFixed(2);
 
         temp.push(parseInt(cantidad) - 1);
         temp.push(parseFloat(unidad).toFixed(2));
-        temp.push((parseFloat(monto) - parseFloat(unidad)).toFixed(2));      
+        temp.push((parseFloat(monto) - parseFloat(unidad)).toFixed(2));
       }
 
-      productsDict[producto] = temp; 
+      productsDict[producto] = temp;
 
       // Se actualiza el total.
+      let arrayTemp = new Array();
       total = 0;
       for (const [key, value] of Object.entries(productsDict)) {
+        arrayTemp[0] = key;
         total += parseFloat(value[2]);
       }
       totalFactura = document.getElementById("value-total-factura");
@@ -291,12 +302,13 @@ function modificarOrden(data) {
 
 readData(modificarOrden);
 
-// Funcionalidad 5. 
+// Funcionalidad 5.
 function cancelarCompra(data) {
+  res=data;
   let cancel = document.getElementById("cancelCompra");
 
   cancel.addEventListener("click", function () {
-    $("#modal").modal()
+    $("#modal").modal();
 
     // Ejecución dentro del modal.
     let confirm2 = document.getElementById("confirm-button-modal");
@@ -310,26 +322,27 @@ function cancelarCompra(data) {
 
 // Funcionalidad 6.
 function confirmarCompra(data) {
+  res=data;
   let confirm = document.getElementById("confirmCompra");
   confirm.addEventListener("click", function () {
     let cont = 0;
     let array = new Array();
     for (const [key, value] of Object.entries(productsDict)) {
-      if(value[0]!=0){
+      if (value[0] != 0) {
         let set = {};
-        set['item'] = cont;
-        set['quantity'] = value[0];
-        set['description'] = key;
-        set['unitPrice'] = value[2];
+        set["item"] = cont;
+        set["quantity"] = value[0];
+        set["description"] = key;
+        set["unitPrice"] = value[2];
         array[cont] = set;
-        cont = cont+1;
+        cont = cont + 1;
       }
-    }    
+    }
     console.log(array);
   });
 }
 
-function generarTabla(productsDict){
+function generarTabla(productsDict) {
   eliminarProducto(productsDict);
 
   total = 0;
@@ -359,9 +372,7 @@ function generarTabla(productsDict){
   row = `
         <div class="row">
         <div class="col-9">
-             <p class="font-weight-bold" id="value-total-factura">Total: $${parseFloat(
-               total
-             ).toFixed(2)}</p>
+             <p class="font-weight-bold" id="value-total-factura">Total: $${parseFloat(total).toFixed(2)}</p>
         </div>
         <div class="col-1">
              <button class="btn btn-danger text-dark" id="cancel-button-factura" data-toggle="modal" data-target="#modal">Cancel</button>
@@ -374,9 +385,9 @@ function generarTabla(productsDict){
   modificarOrden();
 }
 
-function eliminarProducto(productsDict){
+function eliminarProducto(productsDict) {
   for (const [key, value] of Object.entries(productsDict)) {
-    if(parseInt(value[0])==0){
+    if (parseInt(value[0]) == 0) {
       delete productsDict[key];
     }
   }
