@@ -2,14 +2,8 @@ const url =
   "https://gist.githubusercontent.com/josejbocanegra/9a28c356416badb8f9173daf36d1460b/raw/5ea84b9d43ff494fcbf5c5186544a18b42812f09/restaurant.json";
 
 //Punto 2. Dar click agrega.
-const but = document.getElementsByName("agregar");
-let productsDict = {};
 
-but.onclick = agregarItem;
-function agregarItem() {
-  let valor = document.getElementById("num-items").value;
-  document.getElementById("num-items").innerHTML = valor++;
-}
+let productsDict = {};
 
 function readData(callback) {
   fetch(url)
@@ -41,7 +35,6 @@ function iniciarPagina(data) {
             </div>
             </div>`;
     cards.innerHTML += card; //Se agregan los datos.
-    modificarOrden(data);
   });
 }
 
@@ -81,7 +74,9 @@ function cambiarProducto(data, column) {
       });
     }
   });
-  readData(agregarItem); //Se agrega la funcionalidad 2 al efectuar el cambio de pestaña.
+  let totalFactura = document.getElementById("total-factura");
+  totalFactura.innerHTML = "";
+  agregarItem();
 }
 
 function clickBanner(data) {
@@ -166,7 +161,7 @@ function mostrarResumenPedido(data) {
     // Se genera la segunda tabla.
     for (const [key, value] of Object.entries(productsDict)) {
       let tablaFactura = document.getElementById("table-factura");
-      let row = `<tr>
+      let row = `<tr id="${key}">
                  <td class="font-weight-bold">${(cont += 1)}</td>
                  <td >${value[0]}</td>
                  <td >${key}</td>
@@ -188,18 +183,22 @@ function mostrarResumenPedido(data) {
                ).toFixed(2)}</p>
           </div>
           <div class="col-1">
-               <button class="btn btn-danger text-dark">Cancel</button>
+               <button class="btn btn-danger text-dark" id="cancelCompra" data-toggle="modal" data-target="#modal">Cancel</button>
           </div>
           <div class="col-2">
-              <button class="btn btn-light text-dark btn-outline-dark">Confirm order</button></td>
+              <button class="btn btn-light text-dark btn-outline-dark" id="confirmCompra">Confirm order</button></td>
           </div>
           </div>`;
     totalFactura.innerHTML = row;
+    readData(agregarItem);
     readData(modificarOrden);
+    readData(cancelarCompra);
+    readData(confirmarCompra);
   });
 }
 
 readData(mostrarResumenPedido);
+
 
 // Funcionalidad 4.
 function modificarOrden(data) {
@@ -216,19 +215,14 @@ function modificarOrden(data) {
       values = items.innerHTML.split(" ");
       items.innerHTML = `${values[0]} ${parseInt(values[1]) + 1}`; //Se agrega un elemento al carrito de compras.
 
-      let producto =
-        botones_agregar[i].parentNode.parentNode.childNodes[5].innerHTML;
+      let producto = botones_agregar[i].parentNode.parentNode.childNodes[5].innerHTML;
       let cantidad = productsDict[producto][0];
       let unidad = productsDict[producto][1];
       let monto = productsDict[producto][2];
 
-      botones_agregar[i].parentNode.parentNode.childNodes[3].innerHTML =
-        parseInt(cantidad) + 1;
-      botones_agregar[i].parentNode.parentNode.childNodes[7].innerHTML =
-        parseFloat(unidad).toFixed(2);
-      botones_agregar[i].parentNode.parentNode.childNodes[9].innerHTML = (
-        parseFloat(monto) + parseFloat(unidad)
-      ).toFixed(2);
+      botones_agregar[i].parentNode.parentNode.childNodes[3].innerHTML = parseInt(cantidad) + 1;
+      botones_agregar[i].parentNode.parentNode.childNodes[7].innerHTML = parseFloat(unidad).toFixed(2);
+      botones_agregar[i].parentNode.parentNode.childNodes[9].innerHTML = (parseFloat(monto) + parseFloat(unidad)).toFixed(2);
 
       let temp = Array();
 
@@ -240,14 +234,11 @@ function modificarOrden(data) {
 
       // Se actualiza el total.
       total = 0;
-      console.log(productsDict);
       for (const [key, value] of Object.entries(productsDict)) {
         total += parseFloat(value[2]);
       }
       totalFactura = document.getElementById("value-total-factura");
       totalFactura.innerHTML = `Total: $${parseFloat(total).toFixed(2)}`;
-
-      readData(agregarItem);
     });
   }
 
@@ -255,37 +246,138 @@ function modificarOrden(data) {
     botones_quitar[i].addEventListener("click", function () {
       let items = document.getElementById("items");
       values = items.innerHTML.split(" ");
-      items.innerHTML = `${values[0]} ${parseInt(values[1]) - 1}`; //Se eliminan un elemento en el carrito de compras.
+      let numItems = (parseInt(values[1]) - 1 <= 0) ? 0 : parseInt(values[1]) - 1;
+      items.innerHTML = `${values[0]} ${numItems}`; //Se eliminan un elemento en el carrito de compras.
 
       let producto = botones_agregar[i].parentNode.parentNode.childNodes[5].innerHTML;
       let cantidad = productsDict[producto][0];
       let unidad = productsDict[producto][1];
       let monto = productsDict[producto][2];
 
-      botones_agregar[i].parentNode.parentNode.childNodes[3].innerHTML =  parseInt(cantidad) - 1;
-      botones_agregar[i].parentNode.parentNode.childNodes[7].innerHTML =  parseFloat(unidad).toFixed(2);
-      botones_agregar[i].parentNode.parentNode.childNodes[9].innerHTML = (parseFloat(monto) - parseFloat(unidad)).toFixed(2);
-
       let temp = Array();
 
-      temp.push(parseInt(cantidad) - 1);
-      temp.push(parseFloat(unidad).toFixed(2));
-      temp.push((parseFloat(monto) - parseFloat(unidad)).toFixed(2));
+      if(parseInt(cantidad) - 1 <= 0){
+        botones_agregar[i].parentNode.parentNode.childNodes[3].innerHTML =  0;
+        botones_agregar[i].parentNode.parentNode.childNodes[7].innerHTML =  parseFloat(unidad).toFixed(2);
+        botones_agregar[i].parentNode.parentNode.childNodes[9].innerHTML =  parseFloat(0).toFixed(2);
 
-      productsDict[producto] = temp;
+
+        temp.push(0);
+        temp.push(parseFloat(unidad).toFixed(2));
+        temp.push(parseFloat(0));
+      }
+      else{
+        botones_agregar[i].parentNode.parentNode.childNodes[3].innerHTML = parseInt(cantidad) - 1;
+        botones_agregar[i].parentNode.parentNode.childNodes[7].innerHTML = parseFloat(unidad).toFixed(2)
+        botones_agregar[i].parentNode.parentNode.childNodes[9].innerHTML = (parseFloat(monto) - parseFloat(unidad)).toFixed(2);
+
+        temp.push(parseInt(cantidad) - 1);
+        temp.push(parseFloat(unidad).toFixed(2));
+        temp.push((parseFloat(monto) - parseFloat(unidad)).toFixed(2));      
+      }
+
+      productsDict[producto] = temp; 
 
       // Se actualiza el total.
       total = 0;
-      console.log(productsDict);
       for (const [key, value] of Object.entries(productsDict)) {
         total += parseFloat(value[2]);
       }
       totalFactura = document.getElementById("value-total-factura");
       totalFactura.innerHTML = `Total: $${parseFloat(total).toFixed(2)}`;
-
-      readData(agregarItem);
     });
   }
 }
 
 readData(modificarOrden);
+
+// Funcionalidad 5. 
+function cancelarCompra(data) {
+  let cancel = document.getElementById("cancelCompra");
+
+  cancel.addEventListener("click", function () {
+    $("#modal").modal()
+
+    // Ejecución dentro del modal.
+    let confirm2 = document.getElementById("confirm-button-modal");
+    confirm2.addEventListener("click", function () {
+      productsDict = {};
+      generarTabla(productsDict);
+      $("#modal").modal("hide");
+    });
+  });
+}
+
+// Funcionalidad 6.
+function confirmarCompra(data) {
+  let confirm = document.getElementById("confirmCompra");
+  confirm.addEventListener("click", function () {
+    let cont = 0;
+    let array = new Array();
+    for (const [key, value] of Object.entries(productsDict)) {
+      if(value[0]!=0){
+        let set = {};
+        set['item'] = cont;
+        set['quantity'] = value[0];
+        set['description'] = key;
+        set['unitPrice'] = value[2];
+        array[cont] = set;
+        cont = cont+1;
+      }
+    }    
+    console.log(array);
+  });
+}
+
+function generarTabla(productsDict){
+  eliminarProducto(productsDict);
+
+  total = 0;
+  cont = 0;
+  let tablaFactura = document.getElementById("table-factura");
+  tablaFactura.innerHTML = "";
+
+  // Se genera la segunda tabla.
+  for (const [key, value] of Object.entries(productsDict)) {
+    let tablaFactura = document.getElementById("table-factura");
+    tablaFactura.innerHTML = "";
+
+    let row = `<tr id="${key}">
+               <td class="font-weight-bold">${(cont += 1)}</td>
+               <td >${value[0]}</td>
+               <td >${key}</td>
+               <td >${parseFloat(value[1]).toFixed(2)}</td>
+               <td >${parseFloat(value[2]).toFixed(2)}</td>
+               <td ><button class="btn btn-dark text-white agregar">+</button>
+                    <button class="btn btn-dark text-white quitar">-</button></td>
+               </tr>`;
+    total += parseFloat(value[2]);
+    tablaFactura.innerHTML += row; //Se agregan los datos de evento y correlación a la tabla.
+  }
+
+  let totalFactura = document.getElementById("total-factura");
+  row = `
+        <div class="row">
+        <div class="col-9">
+             <p class="font-weight-bold" id="value-total-factura">Total: $${parseFloat(
+               total
+             ).toFixed(2)}</p>
+        </div>
+        <div class="col-1">
+             <button class="btn btn-danger text-dark" id="cancel-button-factura" data-toggle="modal" data-target="#modal">Cancel</button>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-light text-dark btn-outline-dark" id="confirm-button-factura" data-toggle="modal" data-target="#modal">Confirm order</button></td>
+        </div>
+        </div>`;
+  totalFactura.innerHTML = row;
+  modificarOrden();
+}
+
+function eliminarProducto(productsDict){
+  for (const [key, value] of Object.entries(productsDict)) {
+    if(parseInt(value[0])==0){
+      delete productsDict[key];
+    }
+  }
+}

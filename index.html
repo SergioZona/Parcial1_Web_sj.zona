@@ -27,7 +27,7 @@
         <div class="col-1">
           <img src="data/carrito.png" class ="img-fluid" id="carrito"></img> 
         </div>
-        <div class="col-1">
+        <div class="col-1 d-flex align-items-center justify-content-center">
           <p id="items">Items 0</p>
         </div>
       </div>   
@@ -69,11 +69,37 @@
     </div>
     <div class="total" id="total-factura">      
     </div>
+ 
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-lg" id="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal-title">Cancel the order</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Are you sure about cancelling the order?
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-light text-dark btn-outline-dark confirm" id="confirm-button-modal">Yes, I want to cancel the order</button>
+              <button type="button" class="btn btn-danger text-dark cancel" data-dismiss="modal" id="cancel-button-modal">No, I want to continue adding products</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
     <div class="text-center font-weight-bold" id="footer">
       <p>Contact us: +57 3102105253 - info@restaurant.com - @restaurant</p>
     </div>
     </div>
     
     <script src="main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>

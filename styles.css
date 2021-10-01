@@ -57,3 +57,9 @@
 #navbarNav{
   padding-left: 0.5rem;
 }
+
+#cancel-button-modal,
+#confirm-button-modal{
+  display: block;
+  float: left;
+}
